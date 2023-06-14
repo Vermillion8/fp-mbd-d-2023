@@ -43,7 +43,55 @@ const TABS = [
   },
 ];
 
-const TABLE_HEAD = ["Staff", "Job", "Status", "Age", "Salary", " "];
+const TABLE_HEAD = ["Customer", "Address", "Age", "Phone", " "];
+
+const TABLE_ROWS = [
+  {
+    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+    name: "John Michael",
+    email: "john@creative-tim.com",
+    job: "Manager",
+    org: "Organization",
+    online: true,
+    date: "23/04/18",
+  },
+  {
+    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
+    name: "Alexa Liras",
+    email: "alexa@creative-tim.com",
+    job: "Programator",
+    org: "Developer",
+    online: false,
+    date: "23/04/18",
+  },
+  {
+    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
+    name: "Laurent Perrier",
+    email: "laurent@creative-tim.com",
+    job: "Executive",
+    org: "Projects",
+    online: false,
+    date: "19/09/17",
+  },
+  {
+    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
+    name: "Michael Levi",
+    email: "michael@creative-tim.com",
+    job: "Programator",
+    org: "Developer",
+    online: true,
+    date: "24/12/08",
+  },
+  {
+    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
+    name: "Richard Gran",
+    email: "richard@creative-tim.com",
+    job: "Manager",
+    org: "Executive",
+    online: false,
+    date: "04/10/21",
+  },
+];
 
 function DialogEntry() {
   const [open, setOpen] = React.useState(false);
@@ -51,13 +99,9 @@ function DialogEntry() {
   const [formData, setFormData] = useState({
     id: "default",
     name: "",
-    job: "",
-    status: "Idle",
     age: "",
     phoneNumber: "",
-    email: "",
-    gender: "",
-    salary: Math.floor(Math.random() * (3000000 - 2000000 + 1)) + 2000000,
+    address: "",
   });
 
   const handleOpen = () => setOpen(!open);
@@ -73,7 +117,7 @@ function DialogEntry() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Send the form data to the backend
-    fetch("http://localhost:3000/staff", {
+    fetch("http://localhost:3000/customers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -91,12 +135,11 @@ function DialogEntry() {
       });
     // Reset the form data
     setFormData({
+      id: "default",
       name: "",
-      job: "",
       age: "",
       phoneNumber: "",
-      email: "",
-      gender: "",
+      address: "",
     });
     // Close the dialog
     setOpen(false);
@@ -110,11 +153,11 @@ function DialogEntry() {
         size="sm"
         onClick={handleOpen}
       >
-        <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add staff
+        <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add customer
       </Button>
       <Dialog open={open} handler={handleOpen}>
         <div className="flex items-center justify-between">
-          <DialogHeader>Add staff</DialogHeader>
+          <DialogHeader>Add customer</DialogHeader>
           <XMarkIcon className="mr-3 h-5 w-5" onClick={handleOpen} />
         </div>
         <DialogBody divider>
@@ -125,35 +168,21 @@ function DialogEntry() {
               value={formData.name}
               onChange={handleInputChange}
             />
-            {/* <Textarea label="Message" /> */}
-            <Input
-              label="Job"
-              name="job"
-              value={formData.job}
-              onChange={handleInputChange}
-            />
             <Input
               label="Age"
               name="age"
               value={formData.age}
               onChange={handleInputChange}
             />
+            <Textarea 
+            label="Address"
+            name="address"
+            value={formData.address}
+            onChange={handleInputChange} />
             <Input
               label="Phone Number"
               name="phoneNumber"
               value={formData.phoneNumber}
-              onChange={handleInputChange}
-            />
-            <Input
-              label="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-            <Input
-              label="Gender"
-              name="gender"
-              value={formData.gender}
               onChange={handleInputChange}
             />
           </div>
@@ -171,23 +200,21 @@ function DialogEntry() {
   );
 }
 
-function DialogEdit() {
-
-}
+function DialogEdit() {}
 
 export default function Example() {
   useLayoutEffect(() => {
     document.body.style.backgroundColor = '#d1c4e9';
   });
 
-  const [staff, setStaff] = useState([]);
+  const [customer, setCustomer] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/staff"); // Replace with your API endpoint
+        const response = await axios.get("http://localhost:3000/customers"); // Replace with your API endpoint
         const data = response.data;
-        setStaff(data.results);
+        setCustomer(data.results);
         console.log(data.results); // Log the fetched data in the console
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -196,18 +223,18 @@ export default function Example() {
     fetchData();
   }, []);
 
-  console.log(staff);
+  console.log(customer);
 
   return (
-    <Card className="h-auto w-auto px-16 py-4 mx-32 my-16">
-      <CardHeader floated={false} shadow={false} className="rounded-none">
+    <Card className="h-auto w-auto px-16 py-4 mx-16 my-16">
+      <CardHeader floated={false} shadow={false} className="rounded-none bg-transparent">
         <div className="mb-8 flex items-center justify-between gap-8">
           <div>
             <Typography variant="h5" color="blue-gray">
-              Staff list
+              Customer list
             </Typography>
             <Typography color="gray" className="mt-1 font-normal">
-              See information about all staff members
+              See information about all customers
             </Typography>
           </div>
           <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -259,32 +286,29 @@ export default function Example() {
             </tr>
           </thead>
           <tbody>
-            {staff.map(
+            {customer.map(
               (
                 {
-                  staff_id,
-                  staff_name,
-                  staff_email,
-                  staff_job,
-                  staff_age,
-                  staff_status,
-                  staff_salary,
-                  staff_phone,
+                  customer_id,
+                  customer_name,
+                  customer_age,
+                  customer_address,
+                  customer_phone,
                 },
                 index
               ) => {
-                const isLast = index === staff.length - 1;
+                const isLast = index === customer.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
 
                 return (
-                  <tr key={staff_id} className="even:bg-blue-gray-50/50">
+                  <tr key={customer_id} className="even:bg-blue-gray-50/50">
                     <td className={classes}>
                       <div className="flex items-center gap-3">
                         <Avatar
                           src="https://www.freecodecamp.org/news/content/images/size/w60/2022/03/deee.jpg"
-                          alt={staff_name}
+                          alt={customer_name}
                           size="sm"
                         />
                         <div className="flex flex-col">
@@ -293,15 +317,15 @@ export default function Example() {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {staff_name}
+                            {customer_name}
                           </Typography>
-                          <Typography
+                          {/* <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal opacity-70"
                           >
-                            {staff_email}
-                          </Typography>
+                            {customer_address}
+                          </Typography> */}
                         </div>
                       </div>
                     </td>
@@ -312,18 +336,18 @@ export default function Example() {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {staff_job}
+                          {customer_address}
                         </Typography>
-                        <Typography
+                        {/* <Typography
                           variant="small"
                           color="blue-gray"
                           className="font-normal opacity-70"
                         >
-                          {staff_phone}
-                        </Typography>
+                          {customer_name}
+                        </Typography> */}
                       </div>
                     </td>
-                    <td className={classes}>
+                    {/* <td className={classes}>
                       <div className="w-max">
                         <Chip
                           variant="ghost"
@@ -340,28 +364,32 @@ export default function Example() {
                           }
                         />
                       </div>
-                    </td>
+                    </td> */}
                     <td className={classes}>
                       <Typography
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {staff_age}
+                        {customer_age}
                       </Typography>
                     </td>
-                    <td className={classes}>
-                      {/* <Tooltip content="Edit User">
-                        <IconButton variant="text" color="blue-gray">
-                          <PencilIcon className="h-4 w-4" />
-                        </IconButton>
-                      </Tooltip> */}
+                    {/* <td className={classes}>
                       <Typography
                         variant="small"
                         color="blue-gray"
                         className="font-normal"
                       >
                         {staff_salary}
+                      </Typography>
+                    </td> */}
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {customer_phone}
                       </Typography>
                     </td>
                     <td className={classes}>

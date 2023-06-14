@@ -32,8 +32,8 @@ export default function Example() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="/cart" className="flex items-center">
-          Cart
+        <a href="/deliveries" className="flex items-center">
+          Deliveries
         </a>
       </Typography>
       <Typography
@@ -52,8 +52,18 @@ export default function Example() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
-          Docs
+        <a href="/customers" className="flex items-center">
+          Customers
+        </a>
+      </Typography>
+      <Typography
+        as="li"
+        variant="h6"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <a href="/orders" className="flex items-center">
+          Orders
         </a>
       </Typography>
     </ul>

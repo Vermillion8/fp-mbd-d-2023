@@ -18,11 +18,16 @@ app.get('/', (request, response) => {
 })
 
 app.get('/customers', db.getCustomers)
+app.post('/customers', db.createCustomers)
 app.get('/customers/:id', db.getCustomerById)
 app.get('/catalog', db.getCatalog)
-app.post('/users', db.createUser)
-app.put('/users/:id', db.updateUser)
+app.get('/staff', db.getStaff)
+app.post('/staff', db.createStaff)
+// app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
+app.get('/orders', db.getDetailedOrders)
+app.get('/deliveries', db.getDeliveries)
+
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)

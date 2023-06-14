@@ -1,44 +1,48 @@
-import { Fragment, useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-} from "@material-tailwind/react";
+import { useRef } from "react";
 
-export default function Example() {
-  const [open, setOpen] = useState(false);
+const Input = (props) => {
+  const {
+    id,
+    wrapperClassName = "",
+    placeholder = "",
+    label = "",
+    type = "text",
+    error = false,
+    errorText = "",
+    required = false,
+    ...rest
+  } = props;
 
-  const handleOpen = () => setOpen(!open);
+  const inputRef = useRef();
 
   return (
-    <Fragment>
-      <Button onClick={handleOpen} variant="gradient">
-        Open Dialog
-      </Button>
-      <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Its a simple dialog.</DialogHeader>
-        <DialogBody divider>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus ad
-          reprehenderit omnis perspiciatis aut odit! Unde architecto
-          perspiciatis, dolorum dolorem iure quia saepe autem accusamus eum
-          praesentium magni corrupti explicabo!
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
-            <span>Confirm</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
-    </Fragment>
+    <div className={wrapperClassName}>
+      <div
+        className={`border transition duration-150 ease-in-out ${
+          error
+            ? "focus-within:border-red border-red"
+            : "focus-within:border-primary border-gray-gray4"
+        }`}
+        onClick={() => inputRef.current.focus()}
+      >
+        <label
+          htmlFor={id}
+          className="text-xs text-primary font-light placeholder-gray-gray4 px-2 pt-1.5"
+        >
+          {label} {required && <span className="text-red">*</span>}
+        </label>
+        <input
+          ref={inputRef}
+          type={type}
+          className="w-full px-2 pb-1.5 text-primary outline-none text-base font-light rounded-md"
+          id={id}
+          placeholder={placeholder}
+          {...rest}
+        />
+      </div>
+      {errorText && <p className="text-xs pl-2  text-red mb-4">{errorText}</p>}
+    </div>
   );
-}
+};
+
+export default Input;

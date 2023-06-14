@@ -6,7 +6,7 @@ import React, { useLayoutEffect } from 'react'
 
 const Home = () => {
   useLayoutEffect(() => {
-    document.body.style.backgroundColor = '#ad1457';
+    document.body.style.backgroundColor = '#d1c4e9';
   });
 
   return (

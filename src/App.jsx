@@ -1,11 +1,12 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/header/Navbar";
-import Footer from "./components/footer/Footer";
 import Home from "./pages/home/Home";
 import Catalog from "./pages/catalog/Catalog";
-import Cart from "./pages/Cart/Cart";
+import Deliveries from "./pages/deliveries/Deliveries";
 import Staff from "./pages/staff/Staff";
+import Customers from "./pages/customers/Customers";
+import Orders from "./pages/orders/Orders";
 
 function App() {
   return (
@@ -16,17 +17,12 @@ function App() {
       <Routes>
       <Route exact path="/" element={<Home />} />
       <Route exact path="/catalog" element={<Catalog />} />
-      <Route exact path="/cart" element={<Cart />} />
+      <Route exact path="/deliveries" element={<Deliveries />} />
       <Route exact path="/staff" element={<Staff />} />
-
-      {/* <Home />
-      <Services />
-      <Portfolio />
-      <Contact /> */}
+      <Route exact path="/customers" element={<Customers />} />
+      <Route exact path="/orders" element={<Orders />} />
 
       </Routes>
-
-      {/* <Footer /> */}
 
       </Router>
     </div>

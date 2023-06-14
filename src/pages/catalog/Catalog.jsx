@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useLayoutEffect } from "react";
 import axios from "axios";
 
 import {
@@ -76,6 +76,10 @@ const catalogImage = [
 ];
 
 export default function Example() {
+  useLayoutEffect(() => {
+    document.body.style.backgroundColor = '#d1c4e9';
+  });
+
   const [catalog, setCatalog] = useState([]);
 
   useEffect(() => {
@@ -99,7 +103,7 @@ export default function Example() {
   const handleOpen = () => setOpen(!open);
 
   return (
-    <div className="bg-white">
+    <div className="bg-transparent">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">
           Catalog
