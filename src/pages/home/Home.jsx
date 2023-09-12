@@ -3,7 +3,7 @@ import { Button } from "@material-tailwind/react";
 import { Typography } from "@material-tailwind/react";
 
 import React, { useLayoutEffect } from 'react'
-
+// hi
 const Home = () => {
   useLayoutEffect(() => {
     document.body.style.backgroundColor = '#d1c4e9';
