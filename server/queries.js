@@ -151,21 +151,21 @@ const getDeliveries = (request, response) => {
   );
 };
 
-const updateStaff = (request, response) => {
-  const id = parseInt(request.params.id);
-  const { name, email } = request.body;
+// const updateStaff = (request, response) => {
+//   const id = parseInt(request.params.id);
+//   const { name, email } = request.body;
 
-  pool.query(
-    "UPDATE users SET name = $1, email = $2 WHERE id = $3",
-    [name, email, id],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response.status(200).send(`User modified with ID: ${id}`);
-    }
-  );
-};
+//   pool.query(
+//     "UPDATE users SET name = $1, email = $2 WHERE id = $3",
+//     [name, email, id],
+//     (error, results) => {
+//       if (error) {
+//         throw error;
+//       }
+//       response.status(200).send(`User modified with ID: ${id}`);
+//     }
+//   );
+// };
 
 const createCustomers = (request, response) => {
   const { name, age, address, phoneNumber } = request.body;
@@ -193,5 +193,4 @@ module.exports = {
   createStaff,
   getDetailedOrders,
   getDeliveries,
-  updateStaff,
 };
